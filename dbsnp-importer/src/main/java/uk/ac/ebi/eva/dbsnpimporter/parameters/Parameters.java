@@ -49,6 +49,8 @@ public class Parameters implements InitializingBean {
 
     private String referenceFastaFile;
 
+    private Long rsId;
+
     @Override
     public void afterPropertiesSet() throws Exception {
         logger.debug("Properties were set to: {}", this);
@@ -148,5 +150,13 @@ public class Parameters implements InitializingBean {
                 ", contigMappingUrl='" + contigMappingUrl + '\'' +
                 ", referenceFastaFile='" + referenceFastaFile + '\'' +
                 '}';
+    }
+
+    public Long getRsId() {
+        return rsId;
+    }
+
+    public void setRsId(Long rsId) {
+        this.rsId = rsId;
     }
 }

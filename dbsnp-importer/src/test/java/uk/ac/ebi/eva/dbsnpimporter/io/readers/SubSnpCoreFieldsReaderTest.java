@@ -217,7 +217,7 @@ public class SubSnpCoreFieldsReaderTest extends ReaderTest {
 
     private SubSnpCoreFieldsReader buildReader(int batch, String assembly, int pageSize)
             throws Exception {
-        SubSnpCoreFieldsReader fieldsReader = new SubSnpCoreFieldsReader(batch, assembly, dataSource, pageSize);
+        SubSnpCoreFieldsReader fieldsReader = new SubSnpCoreFieldsReader(batch, assembly, dataSource, pageSize, null);
         fieldsReader.afterPropertiesSet();
         ExecutionContext executionContext = new ExecutionContext();
         fieldsReader.open(executionContext);

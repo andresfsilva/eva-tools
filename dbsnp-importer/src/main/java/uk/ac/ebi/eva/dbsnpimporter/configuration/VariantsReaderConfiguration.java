@@ -43,7 +43,7 @@ public class VariantsReaderConfiguration {
         logger.info("Injecting SubSnpCoreFieldsReader with parameters: {}, {}", parameters, dbsnpDatasource);
         DataSource dataSource = dbsnpDatasource.getDatasource();
         return new SubSnpCoreFieldsReader(parameters.getBatchId(), parameters.getAssembly(), dataSource,
-                                          parameters.getPageSize());
+                                          parameters.getPageSize(), parameters.getRsId());
     }
 }
 

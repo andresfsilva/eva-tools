@@ -69,9 +69,9 @@ public class SubSnpCoreFieldsReader extends JdbcCursorItemReader<SubSnpCoreField
 
     private static final Logger logger = LoggerFactory.getLogger(SubSnpCoreFieldsReader.class);
 
-    public SubSnpCoreFieldsReader(int batch, String assembly, DataSource dataSource, int pageSize) throws Exception {
+    public SubSnpCoreFieldsReader(int batch, String assembly, DataSource dataSource, int pageSize, Long rsId) throws Exception {
         setDataSource(dataSource);
-        setSql(buildSql(assembly));
+        setSql(buildSql(assembly, rsId));
         setPreparedStatementSetter(buildPreparedStatementSetter(batch));
         setRowMapper(new SubSnpCoreFieldsRowMapper());
         setFetchSize(pageSize);
@@ -87,7 +87,7 @@ public class SubSnpCoreFieldsReader extends JdbcCursorItemReader<SubSnpCoreField
         super.openCursor(connection);
     }
 
-    private String buildSql(String assembly) throws Exception {
+    private String buildSql(String assembly, Long rsId) throws Exception {
         String tableName = "dbsnp_variant_load_" + hash(assembly);
         logger.debug("querying table {} for assembly {}", tableName, assembly);
         String sql =
@@ -121,6 +121,7 @@ public class SubSnpCoreFieldsReader extends JdbcCursorItemReader<SubSnpCoreField
                         "," + BATCH_COLUMN +
                         " FROM " + tableName +
                         " WHERE batch_id = ? " +
+                        (rsId ==null? "" : "     AND " + REFSNP_ID_COLUMN + " = " + rsId.toString()) +
                         " ORDER BY " + LOAD_ORDER_COLUMN;
 
         return sql;
